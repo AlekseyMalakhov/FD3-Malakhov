@@ -1,2 +1,4 @@
 # FD3-Malakhov
- Malakhov's homeworks
+Малахов Алексей
+
+Домашние работы по курсу React и Angular для разработки веб-приложений.
