@@ -54,13 +54,17 @@ var ShowGoods = React.createClass({
             return React.DOM.div(null,
                     React.DOM.h3( null, this.props.shop_name),
                     React.DOM.table( null,
-                      React.DOM.tr({key: "header"}, 
-                        React.DOM.th({key: "name"}, "Name"),
-                        React.DOM.th({key: "price"}, "Price"),
-                        React.DOM.th({key: "pic"}, "Picture"),
-                        React.DOM.th({key: "stock"}, "In stock")
+                      React.DOM.thead( null,
+                        React.DOM.tr({key: "header"}, 
+                          React.DOM.th({key: "name"}, "Name"),
+                          React.DOM.th({key: "price"}, "Price"),
+                          React.DOM.th({key: "pic"}, "Picture"),
+                          React.DOM.th({key: "stock"}, "In stock")
+                        ),
                       ),
-                      this.props.goods.map(createRow),
+                      React.DOM.tbody( null,
+                        this.props.goods.map(createRow),
+                      ),
                     ),
                   );
   },
