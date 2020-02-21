@@ -90,7 +90,7 @@ class Shop extends React.Component {
         };
         if (!this.state.delete_rows.includes(item.id)) {
             return (
-                   <Item {...props} onItemChange = {this.getData} />        
+                   <Item key = {item.name + 123} {...props} onItemChange = {this.getData} />        
             );
         } else {
             return null;
