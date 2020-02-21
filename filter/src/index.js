@@ -9,8 +9,26 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <h5>Единицы измерения</h5>
+            <div className="filt">
+                <div className="panel">
+                    <input type="checkbox"></input>
+                    <input type="text"></input>
+                    <input type="button" value="Сброс"></input>
+                </div> 
+                 <ul>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                    <li>Coffee</li>
+                    <li>Tea</li>
+                    <li>Milk</li>
+                </ul> 
             </div>
         );
     }

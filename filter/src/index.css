@@ -1,10 +1,21 @@
-table {
-  width: 100%;
+.filt {
+  height: 200px;
+  width: 400px;
+  padding-left: 35px;
 }
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+
+input {
+  margin-right: 10px;
 }
-th, td {
-  padding: 15px;
+
+ul {
+  list-style-type: none;
+  height: 100px;
+  width: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-left: 0;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
 }
