@@ -37,7 +37,7 @@ class App extends React.Component {
     createList() {
         var result;
         var match = [...this.state.match];
-        if (this.state.check) {
+        if (this.state.check && this.state.text) {
             result = this.props.txt.map(checkMatch);
         } else {
             result = this.props.txt.map((e) => <li key = {e + 25}>{e}</li>);
