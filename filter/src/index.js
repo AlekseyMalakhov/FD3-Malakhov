@@ -37,11 +37,18 @@ class App extends React.Component {
     createList() {
         var result;
         var match = [...this.state.match];
-        if (this.state.check && this.state.text) {
-            result = this.props.txt.map(checkMatch);
-        } else {
-            result = this.props.txt.map((e) => <li key = {e + 25}>{e}</li>);
+        var arr = [...this.props.txt];
+
+        if (this.state.check) {
+            arr.sort();
         }
+
+        if (this.state.text) {
+            result = arr.map(checkMatch);
+        } else {
+            result = arr.map((e) => <li key = {e + 25}>{e}</li>);
+        }
+
         function checkMatch(e) {
             if (match.includes(e)) {
                 return <li key = {e + 25}>{e}</li>;
@@ -49,6 +56,8 @@ class App extends React.Component {
         }
         return result;
     }
+
+    
 
     handleCheckBox(e) {
         this.setState({check: e.target.checked});
@@ -69,14 +78,15 @@ class App extends React.Component {
 
     cleanInput() {
         this.setState({match: [],
-                        text: ""});
+                        text: "",
+                        check: false});
     }
 
     render() {  
         return (
             <div className="filt">
                 <div className="panel">
-                    <input type="checkbox" onChange={this.handleCheckBox}></input>
+                    <input type="checkbox" checked = {this.state.check} onChange={this.handleCheckBox}></input>
                     <input type="text" value = {this.state.text} onChange={this.checkText}></input>
                     <input type="button" value="Сброс" onClick = {this.cleanInput}></input>
                 </div> 
