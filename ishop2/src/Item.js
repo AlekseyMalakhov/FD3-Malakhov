@@ -4,18 +4,7 @@ import './index.css';
 class Item extends React.Component {
     constructor(props) {
         super(props);
-        this.selectRow = this.selectRow.bind(this);
         this.deleteRowStage1 = this.deleteRowStage1.bind(this);
-    }
-
-    selectRow(e) {
-        var selected;
-        if ((e.target.tagName === "INPUT" || e.target.tagName === "IMG" )) {
-            selected = Number(e.target.parentNode.parentNode.id.substring(4));
-        } else {
-            selected = Number(e.target.parentNode.id.substring(4));
-        }
-        this.props.onItemChange({selected: selected});
     }
 
     deleteRowStage1(e) {
@@ -28,7 +17,7 @@ class Item extends React.Component {
     render() {
         var item = this.props.item;
         return (
-            <tr className = {(this.props.selected === item.id) ? "selected" : ""} id = {"row_" + item.id} key = {item.name + "row"} onClick = {this.selectRow}>
+            <tr className = {(this.props.selected === item.id) ? "selected" : ""} id = {"row_" + item.id} key = {item.name + "row"} onClick = {()=> this.props.onItemChange({selected: this.props.item.id})}>
                 <td key = {item.name + 1}>
                     {item.name}
                 </td>
