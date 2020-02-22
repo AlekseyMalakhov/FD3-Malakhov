@@ -21,8 +21,7 @@ class Item extends React.Component {
     deleteRowStage1(e) {
         var row_to_delete = Number(e.target.id.substring(4));
         var deleted_item_name = this.props.namelist[row_to_delete];
-        this.props.onItemChange({deleted_item: row_to_delete,
-                                deleted_item_name: deleted_item_name,
+        this.props.onItemChange({deleted_item_name: deleted_item_name,
                                 showRequest: true,});
     }
 

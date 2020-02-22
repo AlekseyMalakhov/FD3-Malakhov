@@ -6,16 +6,13 @@ class Shop extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            delete_rows: [],
-            deleted_item: "",
+            goods: [],
             deleted_item_name: "",
             showRequest: false,
             namelist: [],
             selected: "",
         };
-        
         this.createRows = this.createRows.bind(this);
-        this.createRow = this.createRow.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
         this.hideDeleteRequest = this.hideDeleteRequest.bind(this);
         this.getData = this.getData.bind(this);
@@ -26,46 +23,43 @@ class Shop extends React.Component {
     }
 
     componentDidMount() {
-        var result = [0];
-        this.props.goods.map(extractName);
+        var namelist = [0];
+        var goods = [...this.props.goods];
+        goods.map(extractName);
         function extractName(e) {
-            result[e.id] = e.name;
+            namelist[e.id] = e.name;
         }
-        this.setState({namelist: result});
+        this.setState({namelist: namelist,
+                        goods: goods});
     }
     
     createRows() {
-        var goods = this.props.goods;
-        var result = goods.map(this.createRow);        
+        var goods = [...this.state.goods];
+        var result = goods.map((item) => {
+            var props = {
+                item: item,
+                selected: this.state.selected,
+                namelist: this.state.namelist,
+            };
+            return <Item key = {item.name + 123} {...props} onItemChange = {this.getData} />});        
         return result;        
     }
-
-    createRow(item) {
-        var props = {
-            ...{item: item},
-            ...this.state
-        };
-        if (!this.state.delete_rows.includes(item.id)) {
-            return (
-                   <Item key = {item.name + 123} {...props} onItemChange = {this.getData} />        
-            );
-        } else {
-            return null;
-        }
-    }    
 
     hideDeleteRequest() {
         this.setState({showRequest: false});
     }
 
     deleteRow() {
-        var delete_rows = [...this.state.delete_rows];
-        delete_rows.push(this.state.deleted_item);
-        this.setState({delete_rows: delete_rows,
+        var new_goods = [...this.state.goods];
+        var pos = new_goods.findIndex((e) => (e.name === this.state.deleted_item_name));
+        new_goods.splice(pos, 1);
+        this.setState({goods: new_goods,
                         showRequest: false});
+                        
     }
 
     render() { 
+        console.log(this.state);
         return (
             <div>
                 <h3>{this.props.shop_name}</h3>
