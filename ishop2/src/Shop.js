@@ -59,7 +59,6 @@ class Shop extends React.Component {
     }
 
     render() { 
-        console.log(this.state);
         return (
             <div>
                 <h3>{this.props.shop_name}</h3>
