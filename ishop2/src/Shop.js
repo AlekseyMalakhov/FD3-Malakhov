@@ -15,11 +15,18 @@ class Shop extends React.Component {
         this.createRows = this.createRows.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
         this.hideDeleteRequest = this.hideDeleteRequest.bind(this);
-        this.getData = this.getData.bind(this);
+        this.getDeleteData = this.getDeleteData.bind(this);
+        this.getSelectData = this.getSelectData.bind(this);
     }
 
-    getData(local_state) {
-        this.setState(local_state);
+    getDeleteData(deleted_item_name, deleted_item_id) {
+        this.setState({deleted_item_name: deleted_item_name,
+                        deleted_item_id: deleted_item_id,
+                        showRequest: true});
+    }
+
+    getSelectData(item_id) {
+        this.setState({selected: item_id});
     }
 
     componentDidMount() {
@@ -34,7 +41,7 @@ class Shop extends React.Component {
                 item: item,
                 selected: this.state.selected,
             };
-            return <Item key = {item.id} {...props} onItemDelete = {this.getData} onItemSelect = {this.getData}/>});        
+            return <Item key = {item.id} {...props} onItemDelete = {this.getDeleteData} onItemSelect = {this.getSelectData}/>});        
         return result;        
     }
 
