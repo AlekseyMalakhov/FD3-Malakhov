@@ -23,7 +23,7 @@ class Item extends React.Component {
                     {item.stock}
                 </td>
                 <td key = {item.id + "delete"}>
-                    <input id = {"btn_" + item.id} type="button" value="Delete" key = {item.name + 7} onClick = {()=> this.props.onItemDelete({deleted_item_name: this.props.item.name, showRequest: true,})}></input>
+                    <input id = {"btn_" + item.id} type="button" value="Delete" key = {item.name + 7} onClick = {()=> this.props.onItemDelete({deleted_item_name: this.props.item.name, deleted_item_id: this.props.item.id, showRequest: true,})}></input>
                 </td>
             </tr> 
 

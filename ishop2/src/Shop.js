@@ -8,6 +8,7 @@ class Shop extends React.Component {
         this.state = {
             goods: [],
             deleted_item_name: "",
+            deleted_item_id: "",
             showRequest: false,
             selected: "",
         };
@@ -43,7 +44,7 @@ class Shop extends React.Component {
 
     deleteRow() {
         var new_goods = [...this.state.goods];
-        var pos = new_goods.findIndex((e) => (e.name === this.state.deleted_item_name));
+        var pos = new_goods.findIndex((e) => (e.id === this.state.deleted_item_id));
         new_goods.splice(pos, 1);
         this.setState({goods: new_goods,
                         showRequest: false});
