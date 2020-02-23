@@ -9,7 +9,7 @@ class Item extends React.Component {
     render() {
         var item = this.props.item;
         return (
-            <tr className = {(this.props.selected === item.id) ? "selected" : ""} id = {"row_" + item.id} key = {item.id + "row"} onClick = {()=> this.props.onItemDelete({selected: this.props.item.id})}>
+            <tr className = {(this.props.selected === item.id) ? "selected" : ""} id = {"row_" + item.id} key = {item.id + "row"} onClick = {()=> this.props.onItemSelect({selected: this.props.item.id})}>
                 <td key = {item.id + item.name}>
                     {item.name}
                 </td>

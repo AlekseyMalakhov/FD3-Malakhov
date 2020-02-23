@@ -33,7 +33,7 @@ class Shop extends React.Component {
                 item: item,
                 selected: this.state.selected,
             };
-            return <Item key = {item.id} {...props} onItemDelete = {this.getData} />});        
+            return <Item key = {item.id} {...props} onItemDelete = {this.getData} onItemSelect = {this.getData}/>});        
         return result;        
     }
 
