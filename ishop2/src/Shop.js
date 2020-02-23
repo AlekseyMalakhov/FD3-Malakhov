@@ -9,7 +9,6 @@ class Shop extends React.Component {
             goods: [],
             deleted_item_name: "",
             showRequest: false,
-            namelist: [],
             selected: "",
         };
         this.createRows = this.createRows.bind(this);
@@ -23,14 +22,8 @@ class Shop extends React.Component {
     }
 
     componentDidMount() {
-        var namelist = [0];
         var goods = [...this.props.goods];
-        goods.map(extractName);
-        function extractName(e) {
-            namelist[e.id] = e.name;
-        }
-        this.setState({namelist: namelist,
-                        goods: goods});
+        this.setState({goods: goods});
     }
     
     createRows() {
@@ -39,9 +32,8 @@ class Shop extends React.Component {
             var props = {
                 item: item,
                 selected: this.state.selected,
-                namelist: this.state.namelist,
             };
-            return <Item key = {item.name + 123} {...props} onItemChange = {this.getData} />});        
+            return <Item key = {item.id} {...props} onItemDelete = {this.getData} />});        
         return result;        
     }
 
@@ -59,6 +51,7 @@ class Shop extends React.Component {
     }
 
     render() { 
+        console.log(this.state);
         return (
             <div>
                 <h3>{this.props.shop_name}</h3>
