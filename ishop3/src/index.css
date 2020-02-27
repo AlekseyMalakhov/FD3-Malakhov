@@ -1,5 +1,6 @@
 table {
     width: 70%;
+    margin-bottom: 10px;
 }
 table, th, td {
     border: 1px solid black;
@@ -11,6 +12,20 @@ th, td {
 
 input[type=button] {
     margin-right: 10px;
+}
+
+input[type=text] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.card {
+    margin-left: 20px;
+    padding: 5px;
 }
 
 .invisible {
