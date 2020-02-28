@@ -47,3 +47,23 @@ var props = {
 };
 
 ReactDOM.render(<Shop {...props}/>, document.getElementById('root'));
+
+/*
+
+var goods = {
+  id_1: {
+      name: "sheet",
+      price: 8,
+      pic_url: "sheet.jpg",
+      stock: 32,
+  },
+  id_2: {
+      name: "sheet",
+      price: 8,
+      pic_url: "sheet.jpg",
+      stock: 32,
+  }
+};
+
+console.log(goods.id_1.pic_url);
+*/
