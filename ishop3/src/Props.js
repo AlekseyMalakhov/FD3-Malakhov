@@ -36,7 +36,7 @@ var Props = {
             "id": 5
         }
       ],
-    "shop_name": "Mega Shop 2"
+    "shop_name": "Mega Shop 3"
 };
 
 export default Props;

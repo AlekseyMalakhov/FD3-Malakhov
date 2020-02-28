@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
-import Item from './Item.js'
+import Item from './Item.js';
+import Card from './Card.js';
 
 class Shop extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class Shop extends React.Component {
             showRequest: false,
             showCard: false,
             selected_item: {},
+            selected_item_id: "",
             edit: false,
         };
         this.createRows = this.createRows.bind(this);
@@ -21,22 +23,33 @@ class Shop extends React.Component {
         this.getSelectData = this.getSelectData.bind(this);
         this.addRow = this.addRow.bind(this);
         this.showCard = this.showCard.bind(this);
+        this.toggleEdit = this.toggleEdit.bind(this);
         this.getEditData = this.getEditData.bind(this);
     }
 
-    getDeleteData(deleted_item_name, deleted_item_id) {
+    getDeleteData(deleted_item_name, deleted_item_id, deleted_item) {
         this.setState({deleted_item_name: deleted_item_name,
                         deleted_item_id: deleted_item_id,
-                        showRequest: true});
+                        selected_item_id: deleted_item_id,
+                        selected_item: deleted_item,
+                        showCard: true,
+                        showRequest: true,
+                        edit: false, });
     }
 
     getSelectData(item) {
-        this.setState({selected_item: item, showCard: true,});
+        if (item.id === this.state.selected_item.id) {
+            this.setState({selected_item: item, selected_item_id: item.id, showCard: true,});
+        } else {
+            this.setState({selected_item: item, selected_item_id: item.id, showCard: true, edit: false, deleted_item_id: "", deleted_item_name: "", showRequest: false});
+        }
+        
     }
 
-    getEditData(boolean) {
+    toggleEdit(boolean, item) {
+        console.log(item);
         console.log(boolean);
-        this.setState({edit: boolean});
+        this.setState({selected_item: item, selected_item_id: item.id, showCard: true, edit: boolean, deleted_item_id: "", deleted_item_name: "", showRequest: false});
     }
 
     componentDidMount() {
@@ -49,9 +62,9 @@ class Shop extends React.Component {
         var result = goods.map((item) => {
             var props = {
                 item: item,
-                selected: this.state.selected_item.id,
+                selected_id: this.state.selected_item_id,
             };
-            return <Item key = {item.id} {...props} onItemDelete = {this.getDeleteData} onItemSelect = {this.getSelectData} onItemEdit = {this.getEditData}/>});        
+            return <Item key = {item.id} {...props} onItemDelete = {this.getDeleteData} onItemSelect = {this.getSelectData} onItemEdit = {this.toggleEdit}/>});        
         return result;        
     }
 
@@ -65,8 +78,18 @@ class Shop extends React.Component {
         new_goods.splice(pos, 1);
         this.setState({goods: new_goods,
                         showRequest: false,
+                        deleted_item_name: "",
+                        deleted_item_id: "",
                         showCard: false,
-                        selected_item: {},});
+                        selected_item: {
+                            name: "",
+                            price: "",
+                            pic_url: "",
+                            stock: "",
+                            id: "",
+                        },
+                        selected_item_id: "",
+                        edit: false,});
                         
     }
 
@@ -74,29 +97,24 @@ class Shop extends React.Component {
         console.log("row added");
     }
 
-    showCard() {
-        var card;
-        if (this.state.edit) {
-            card = <div className = {(this.state.showCard) ? "card" : "invisible"}>
-                        <h3>Item Info</h3>
-                        <label htmlFor="name_inp">Name:</label>
-                        <input id = "name_inp" type="text"></input>
-
-                        <label htmlFor="price_inp">Price:</label>
-                        <input id = "price_inp" type="text"></input>
-
-                        <label htmlFor="stock_inp">In stock:</label>
-                        <input id = "stock_inp" type="text"></input>
-                    </div>;
-        } else {
-            card = <div className = {(this.state.showCard) ? "card" : "invisible"}>
-                        <h3>Item Info</h3>
-                        <p>Name: {this.state.selected_item.name}</p>
-                        <p>Price: {this.state.selected_item.price}</p>
-                        <p>In stock: {this.state.selected_item.stock}</p>
-                    </div>;
+    getEditData(item) {
+        var goods = [...this.state.goods];
+        var id = item.id;
+        for (var i = 0; i < goods.length; i++) {
+            if (goods[i].id === id) {
+                goods[i] = item;
+            }
         }
-        return card;
+        this.setState({goods: goods});        
+    }
+
+    showCard() {
+        var props = {
+            item: this.state.selected_item,
+            showCard: this.state.showCard,
+            edit: this.state.edit,
+        };
+        return <Card key = "card" {...props} onCardChange = {this.getEditData} onEditCancel = {() => {this.setState({edit:false})}}/>  
     }
 
     render() { 
