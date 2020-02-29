@@ -35,3 +35,8 @@ input[type="text"],[type="number"] {
 .selected {
     background-color: aqua;
 }
+
+.err {
+    color: red;
+    margin-top: 0.3em;
+}

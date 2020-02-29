@@ -8,13 +8,12 @@ class Shop extends React.Component {
         super(props);
         this.state = {
             goods: [],
-            deleted_item_name: "",
-            deleted_item_id: "",
             showRequest: false,
             showCard: false,
             selected_item: {},
-            selected_item_id: "",
             edit: false,
+            new: false,
+            new_id: 6,
         };
         this.createRows = this.createRows.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
@@ -25,23 +24,22 @@ class Shop extends React.Component {
         this.showCard = this.showCard.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.getEditData = this.getEditData.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
-    getDeleteData(deleted_item_name, deleted_item_id, deleted_item) {
-        this.setState({deleted_item_name: deleted_item_name,
-                        deleted_item_id: deleted_item_id,
-                        selected_item_id: deleted_item_id,
-                        selected_item: deleted_item,
+    getDeleteData(deleted_item) {
+        this.setState({ selected_item: deleted_item,
                         showCard: true,
                         showRequest: true,
-                        edit: false, });
+                        edit: false,
+                        new: false, });
     }
 
     getSelectData(item) {
         if (item.id === this.state.selected_item.id) {
-            this.setState({selected_item: item, selected_item_id: item.id, showCard: true,});
+            this.setState({selected_item: item, showCard: true,});
         } else {
-            this.setState({selected_item: item, selected_item_id: item.id, showCard: true, edit: false, deleted_item_id: "", deleted_item_name: "", showRequest: false});
+            this.setState({selected_item: item, showCard: true, edit: false, showRequest: false});
         }
         
     }
@@ -49,7 +47,7 @@ class Shop extends React.Component {
     toggleEdit(boolean, item) {
         console.log(item);
         console.log(boolean);
-        this.setState({selected_item: item, selected_item_id: item.id, showCard: true, edit: boolean, deleted_item_id: "", deleted_item_name: "", showRequest: false});
+        this.setState({selected_item: item, showCard: true, edit: boolean, showRequest: false});
     }
 
     componentDidMount() {
@@ -62,7 +60,9 @@ class Shop extends React.Component {
         var result = goods.map((item) => {
             var props = {
                 item: item,
-                selected_id: this.state.selected_item_id,
+                selected_id: this.state.selected_item.id,
+                edit: this.state.edit,
+                new: this.state.new,
             };
             return <Item key = {item.id} {...props} onItemDelete = {this.getDeleteData} onItemSelect = {this.getSelectData} onItemEdit = {this.toggleEdit}/>});        
         return result;        
@@ -74,12 +74,10 @@ class Shop extends React.Component {
 
     deleteRow() {
         var new_goods = [...this.state.goods];
-        var pos = new_goods.findIndex((e) => (e.id === this.state.deleted_item_id));
+        var pos = new_goods.findIndex((e) => (e.id === this.state.selected_item.id));
         new_goods.splice(pos, 1);
         this.setState({goods: new_goods,
                         showRequest: false,
-                        deleted_item_name: "",
-                        deleted_item_id: "",
                         showCard: false,
                         selected_item: {
                             name: "",
@@ -88,24 +86,42 @@ class Shop extends React.Component {
                             stock: "",
                             id: "",
                         },
-                        selected_item_id: "",
                         edit: false,});
                         
     }
 
     addRow() {
-        console.log("row added");
+        this.setState({showCard: true,
+                        selected_item: {
+                            name: "",
+                            price: "",
+                            pic_url: "",
+                            stock: "",
+                            id: this.state.new_id,
+                        },
+                        edit: true,
+                        showRequest: false,
+                        new: true, });
     }
 
     getEditData(item) {
         var goods = [...this.state.goods];
         var id = item.id;
+        var new_row = false;
+        var new_id = this.state.new_id;
         for (var i = 0; i < goods.length; i++) {
             if (goods[i].id === id) {
                 goods[i] = item;
             }
         }
-        this.setState({goods: goods});        
+        if (this.state.new) {
+            goods.push(item);
+            new_row = false;
+            new_id = this.state.new_id + 1;
+        }
+        this.setState({goods: goods, 
+                        new: new_row,
+                        new_id: new_id});        
     }
 
     showCard() {
@@ -113,8 +129,17 @@ class Shop extends React.Component {
             item: this.state.selected_item,
             showCard: this.state.showCard,
             edit: this.state.edit,
+            new: this.state.new,
         };
-        return <Card key = "card" {...props} onCardChange = {this.getEditData} onEditCancel = {() => {this.setState({edit:false})}}/>  
+        return <Card key = "card" {...props} onCardChange = {this.getEditData} onEditCancel = {this.handleCancel}/>  
+    }
+
+    handleCancel() {
+        if (this.state.new) {
+            this.setState({edit:false, new: false, showCard: false});
+        } else {
+            this.setState({edit:false, new: false});
+        }
     }
 
     render() { 
@@ -139,9 +164,9 @@ class Shop extends React.Component {
                     </table>
                     {this.showCard()}
                 </div>
-                <input type="button" value="New" key = "new" onClick = {this.addRow}></input>
+                <input type="button" value="New" key = "new" disabled = {this.state.edit} onClick = {this.addRow}></input>
                 <div className = {(this.state.showRequest) ? "" : "invisible"}>
-                    <h3>Do you realy want to delete {this.state.deleted_item_name}</h3>
+                    <h3>Do you realy want to delete {this.state.selected_item.name}</h3>
                     <input type="button" value="Yes" key = "yes" onClick = {this.deleteRow}></input>
                     <input type="button" value="No" key = "no" onClick = {this.hideDeleteRequest}></input>
                 </div>
