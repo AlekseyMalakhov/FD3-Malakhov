@@ -121,7 +121,10 @@ class Shop extends React.Component {
         }
         this.setState({goods: goods, 
                         new: new_row,
-                        new_id: new_id});        
+                        new_id: new_id,
+                        edit: false,
+                        selected_item: item,
+                        });        
     }
 
     showCard() {

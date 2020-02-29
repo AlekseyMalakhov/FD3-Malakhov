@@ -54,6 +54,7 @@ class Card extends React.Component {
 
     render() {
         console.log(this.state);
+        console.log(this.props);
         var card;
         if (this.props.edit) {
             card = <div className = {(this.props.showCard) ? "card" : "invisible"}>
