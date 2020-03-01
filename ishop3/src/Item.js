@@ -8,7 +8,7 @@ class Item extends React.Component {
     }
 
     select(e) {
-        if (!this.props.new) {
+        if (!(this.props.new || this.props.edit)) {
             var id = e.target.id.substring(0, 3);
             if (id !== "btn") {
                 this.props.onItemSelect(this.props.item);
@@ -34,7 +34,7 @@ class Item extends React.Component {
                     {item.stock}
                 </td>
                 <td key = {item.id + "delete"}>
-                    <input id = {"btn_edit" + item.id} type="button" disabled = {this.props.new}value="Edit" key = {item.id + 7} onClick = {()=> {this.props.onItemEdit(true, this.props.item)}}></input>
+                    <input id = {"btn_edit" + item.id} type="button" disabled = {(this.props.new || this.props.edit)}value="Edit" key = {item.id + 7} onClick = {()=> {this.props.onItemEdit(true, this.props.item)}}></input>
                     <input id = {"btn_del" + item.id} type="button" disabled = {this.props.edit} value="Delete" key = {item.id + 8} onClick = {()=> this.props.onItemDelete(this.props.item)}></input>                    
                 </td>
             </tr> 
