@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Shop from './Shop.js';
-import Props from './Props.js';
+import RainbowFrame from './RainbowFrame.js';
 
-ReactDOM.render(<Shop {...Props}/>, document.getElementById('root'));
+let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
+
+ReactDOM.render(<RainbowFrame colors = {colors}/>, document.getElementById('root'));
