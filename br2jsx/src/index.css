@@ -1,9 +1,8 @@
 #root {
-    width: 300px;
-    border: none;
-}
-
-div {
+    width: 200px;
     border: 1px solid;
     padding: 7px;
+    text-align: center;
+    background-color: rgb(141, 214, 233);
+    font-weight: bold;
 }

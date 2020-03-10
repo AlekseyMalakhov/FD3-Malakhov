@@ -17,5 +17,4 @@ function RainbowFrame(props) {
 
     return result;  
 }
-
 export default RainbowFrame;

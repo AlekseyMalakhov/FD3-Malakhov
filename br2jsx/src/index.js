@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import RainbowFrame from './RainbowFrame.js';
+import BR2JSX from './BR2JSX.js';
 
-let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
+let text = "первый<br>второй<br/>третий<br />последний";
 
-ReactDOM.render(<RainbowFrame colors = {colors}>Hello!</RainbowFrame>, document.getElementById('root'));
+ReactDOM.render(<BR2JSX text = {text} />, document.getElementById('root'));
