@@ -1,0 +1,9 @@
+#root {
+    width: 300px;
+    border: none;
+}
+
+div {
+    border: 1px solid;
+    padding: 7px;
+}

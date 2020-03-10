@@ -5,4 +5,4 @@ import RainbowFrame from './RainbowFrame.js';
 
 let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
 
-ReactDOM.render(<RainbowFrame colors = {colors}/>, document.getElementById('root'));
+ReactDOM.render(<RainbowFrame colors = {colors}>Hello!</RainbowFrame>, document.getElementById('root'));
