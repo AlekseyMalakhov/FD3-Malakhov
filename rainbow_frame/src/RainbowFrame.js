@@ -2,7 +2,6 @@ import React from 'react';
 import './index.css';
 
 function RainbowFrame(props) {
-    console.log(props);
     var result = props.children;
 
     props.colors.forEach((color) => {
