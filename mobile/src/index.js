@@ -5,28 +5,24 @@ import Mobile from './Mobile.js';
 import Initial_data from './Initial_data.json';
 
 
-function addEditProperty() {
-    console.log(Initial_data);
-    /*
-    var init_data = {...Initial_data};
+function addEditProperty(Initial_data) {
+    var result = {...Initial_data};
+    result.clients = {...result.clients};
     var id;
-    for (id in init_data.clients) {
-        console.log(id);
-        init_data.clients[id].forEach((e) => {e.edit = "false"})
-    }  
-    */
-    var id;
-    for (id in Initial_data.clients) {
-        var clients = Initial_data.clients[id];
-        clients.forEach((e) => {
+    for (id in result.clients) {
+        var clients_arr = [...result.clients[id]];
+        var new_client_arr = clients_arr.map((e) => {
             var client = {...e};
-            console.log(client);
             client.edit = "false";
+            return client;
             });
+        result.clients[id] = new_client_arr;
     }
-    
+    return result;    
 }
 
-addEditProperty();
+var init_data = addEditProperty(Initial_data);
+console.log(Initial_data);
+console.log(init_data);
 
 ReactDOM.render(<Mobile initial_data = {Initial_data}></Mobile>, document.getElementById('root'));
