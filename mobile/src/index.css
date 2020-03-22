@@ -21,3 +21,7 @@ div {
 .active {
     background-color: rgb(71, 219, 96);
 }
+
+input[type="text"],[type="number"] {
+    width: 80px;
+}
