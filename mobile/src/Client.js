@@ -7,6 +7,11 @@ class Client extends React.PureComponent {
         super(props);
         this.checkColor = this.checkColor.bind(this);
         this.clientRow = this.clientRow.bind(this);
+        this.clientSurname = React.createRef();
+        this.clientName = React.createRef();
+        this.clientPatronymic = React.createRef();
+        this.clientBalance = React.createRef();
+
     }
 
     checkColor() {
@@ -48,16 +53,16 @@ class Client extends React.PureComponent {
             return (
                 <tr key = {client.id + "row"}>
                     <td key = {client.id + "surname"}>
-                        <input type="text" ></input>
+                        <input type="text" ref={this.clientSurname} onChange = {() => ee.emit("edit_input", client, this.clientSurname)}></input>
                     </td>
                     <td key = {client.id + "name"}>
-                        <input type="text" ></input>
+                        <input type="text" ref={this.clientName} onChange = {() => ee.emit("edit_input", client, this.clientName)}></input>
                     </td>
                     <td key = {client.id + "patronymic"}>
-                        <input type="text" ></input>
+                        <input type="text" ref={this.clientPatronymic} onChange = {() => ee.emit("edit_input", client, this.clientPatronymic)}></input>
                     </td>
                     <td key = {client.id + "balance"}>
-                        <input type="number" ></input>
+                        <input type="number" ref={this.clientBalance} onChange = {() => ee.emit("edit_input", client, this.clientBalance)}></input>
                     </td>
                     <td className = {this.checkColor()} key = {client.id + "status"}>
                         <select>

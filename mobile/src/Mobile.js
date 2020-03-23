@@ -20,12 +20,14 @@ class Mobile extends React.Component {
         this.onDelete = this.onDelete.bind(this);
         this.onSave = this.onSave.bind(this);
         this.onCancel = this.onCancel.bind(this);
+        this.onEditInput = this.onEditInput.bind(this);
 
 
     }
 
     componentDidMount() {
         ee.on("edit", this.onEdit);
+        ee.on("edit_input", this.onEditInput);
         ee.on("delete", this.onDelete);
         ee.on("save", this.onSave);
         ee.on("cancel", this.onCancel);
@@ -46,6 +48,11 @@ class Mobile extends React.Component {
         clients_arr[pos] = new_client;
         result[new_client.company] = clients_arr;
         this.setState({clients: result});
+    }
+
+    onEditInput(client, some) {
+        //console.log(some.current.value);
+        console.log(some);
     }
 
     onDelete(client) {
