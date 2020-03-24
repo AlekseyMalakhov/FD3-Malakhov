@@ -5,7 +5,21 @@ import Filter from "./Filter.js";
 import Table from "./Table.js";
 import ee from "./Emitter.js";
 
-
+function makeImmutable(client, state) {
+    var result = {};
+    var new_client = {...client};
+    var new_client_list = {...state.clients};
+    var clients_arr = [...new_client_list[new_client.company]];
+    var pos = clients_arr.findIndex((e) => (e.id === new_client.id));
+    clients_arr[pos] = new_client;
+    new_client_list[new_client.company] = clients_arr;
+    result = {
+        new_client: new_client,
+        position: pos,
+        new_client_list: new_client_list
+    };
+    return result;
+} 
 
 class Mobile extends React.Component {
     constructor(props) {
@@ -16,25 +30,31 @@ class Mobile extends React.Component {
             company: "",
         };
         this.selectCompany = this.selectCompany.bind(this);
-        this.onEdit = this.onEdit.bind(this);
+        this.onEditToggle = this.onEditToggle.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onSave = this.onSave.bind(this);
         this.onCancel = this.onCancel.bind(this);
+        /*
         this.onEditSurname = this.onEditSurname.bind(this);
         this.onEditName = this.onEditName.bind(this);
         this.onEditPatronymic = this.onEditPatronymic.bind(this);
         this.onEditBalance = this.onEditBalance.bind(this);
         this.editClient = this.editClient.bind(this);
+        */
 
 
     }
 
     componentDidMount() {
-        ee.on("edit", this.onEdit);
+        ee.on("edit", this.onEditToggle);
+
+        /*
         ee.on("edit_surname", this.onEditSurname);
         ee.on("edit_name", this.onEditName);
         ee.on("edit_patronymic", this.onEditPatronymic);
         ee.on("edit_balance", this.onEditBalance);
+        */
+
         ee.on("delete", this.onDelete);
         ee.on("save", this.onSave);
         ee.on("cancel", this.onCancel);
@@ -46,16 +66,15 @@ class Mobile extends React.Component {
         });
     }
 
-    onEdit(client) {
-        var new_client = {...client};
-        new_client.edit = true;
-        var result = {...this.state.clients};
-        var clients_arr = [...result[new_client.company]];
-        var pos = clients_arr.findIndex((e) => (e.id === new_client.id));
-        clients_arr[pos] = new_client;
-        result[new_client.company] = clients_arr;
-        this.setState({clients: result});
+    onEditToggle(client) {
+        var result = makeImmutable(client, this.state);
+        result.new_client.edit = true;
+        //console.log(this.state.clients);
+        //console.log(result.new_client_list);
+        this.setState({clients: result.new_client_list});
     }
+
+    /*
 
     onEditSurname(client, data) {
         var data = data.current.value;
@@ -78,28 +97,22 @@ class Mobile extends React.Component {
     }
 
     editClient(client, type, data) {
-        var new_client = {...client};
-        new_client[type] = data;
-        //console.log(new_client.id + " " + type + " "+ data);
-        //console.log(new_client);
-        var result = {...this.state.clients};
-        var clients_arr = [...result[new_client.company]];
-        var pos = clients_arr.findIndex((e) => (e.id === new_client.id));        
-        clients_arr[pos] = new_client;
-        result[new_client.company] = clients_arr;
-        console.log(this.state.clients);
-        console.log(result);
+        var result = makeImmutable(client, this.state);
+        result.new_client[type] = data;
+        //console.log(this.state.clients);
+        //console.log(result.new_client_list);
+        this.setState({clients: result.new_client_list});
     }
 
+    */
+
     onDelete(client) {
-        var result = {...this.state.clients};
-        var clients_arr = [...result[client.company]];
-        var pos = clients_arr.findIndex((e) => (e.id === client.id));
-        clients_arr.splice(pos, 1);
-        result[client.company] = clients_arr;
+        var result = makeImmutable(client, this.state);
+        var pos = result.position;
+        result.new_client_list[client.company].splice(pos, 1);
         //console.log(this.state.clients);
-        //console.log(result);
-        this.setState({clients: result});        
+        //console.log(result.new_client_list);
+        this.setState({clients: result.new_client_list});
     }
 
     onSave(client) {

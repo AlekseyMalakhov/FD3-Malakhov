@@ -5,13 +5,48 @@ import ee from "./Emitter.js";
 class Client extends React.PureComponent {
     constructor(props) {
         super(props);
+        this.state = {
+            edited_client: {}
+        };
         this.checkColor = this.checkColor.bind(this);
         this.clientRow = this.clientRow.bind(this);
         this.clientSurname = React.createRef();
         this.clientName = React.createRef();
         this.clientPatronymic = React.createRef();
         this.clientBalance = React.createRef();
+        this.onEditSurname = this.onEditSurname.bind(this);
+        this.onEditName = this.onEditName.bind(this);
+        this.onEditPatronymic = this.onEditPatronymic.bind(this);
+        this.onEditBalance = this.onEditBalance.bind(this);
+        this.editClient = this.editClient.bind(this);
+    }
 
+    onEditSurname(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "surname", data);
+    }
+
+    onEditName(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "name", data);
+    }
+
+    onEditPatronymic(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "patronymic", data);
+    }
+
+    onEditBalance(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "balance", data);
+    }
+
+    editClient(client, type, data) {
+        var edited_client = {...client};
+        edited_client[type] = data;
+        console.log(this.props);
+        console.log(edited_client);
+        //this.setState({client: client});
     }
 
     checkColor() {
@@ -24,7 +59,6 @@ class Client extends React.PureComponent {
     }
 
     clientRow() {
-        console.log(this.props);
         var client = this.props;
 
         if(!client) {
@@ -51,16 +85,16 @@ class Client extends React.PureComponent {
             return (
                 <tr key = {client.id + "row"}>
                     <td key = {client.id + "surname"}>
-                        <input type="text" ref={this.clientSurname} onChange = {() => ee.emit("edit_surname", client, this.clientSurname)}></input>
+                        <input type="text" ref={this.clientSurname} onChange = {() => this.onEditSurname(client, this.clientSurname)}></input>
                     </td>
                     <td key = {client.id + "name"}>
-                        <input type="text" ref={this.clientName} onChange = {() => ee.emit("edit_name", client, this.clientName)}></input>
+                        <input type="text" ref={this.clientName} onChange = {() => this.onEditName(client, this.clientName)}></input>
                     </td>
                     <td key = {client.id + "patronymic"}>
-                        <input type="text" ref={this.clientPatronymic} onChange = {() => ee.emit("edit_patronymic", client, this.clientPatronymic)}></input>
+                        <input type="text" ref={this.clientPatronymic} onChange = {() => this.onEditPatronymic(client, this.clientPatronymic)}></input>
                     </td>
                     <td key = {client.id + "balance"}>
-                        <input type="number" ref={this.clientBalance} onChange = {() => ee.emit("edit_balance", client, this.clientBalance)}></input>
+                        <input type="number" ref={this.clientBalance} onChange = {() => this.onEditBalance(client, this.clientBalance)}></input>
                     </td>
                     <td className = {this.checkColor()} key = {client.id + "status"}>
                         <select>
