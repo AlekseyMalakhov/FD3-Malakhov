@@ -31,8 +31,6 @@ class Client extends React.PureComponent {
             return <tr><td></td></tr>;
         }
 
-        console.log(client.edit);
-
         if (!client.edit) {
             return (
                 <tr key = {client.id + "row"}>
@@ -53,16 +51,16 @@ class Client extends React.PureComponent {
             return (
                 <tr key = {client.id + "row"}>
                     <td key = {client.id + "surname"}>
-                        <input type="text" ref={this.clientSurname} onChange = {() => ee.emit("edit_input", client, this.clientSurname)}></input>
+                        <input type="text" ref={this.clientSurname} onChange = {() => ee.emit("edit_surname", client, this.clientSurname)}></input>
                     </td>
                     <td key = {client.id + "name"}>
-                        <input type="text" ref={this.clientName} onChange = {() => ee.emit("edit_input", client, this.clientName)}></input>
+                        <input type="text" ref={this.clientName} onChange = {() => ee.emit("edit_name", client, this.clientName)}></input>
                     </td>
                     <td key = {client.id + "patronymic"}>
-                        <input type="text" ref={this.clientPatronymic} onChange = {() => ee.emit("edit_input", client, this.clientPatronymic)}></input>
+                        <input type="text" ref={this.clientPatronymic} onChange = {() => ee.emit("edit_patronymic", client, this.clientPatronymic)}></input>
                     </td>
                     <td key = {client.id + "balance"}>
-                        <input type="number" ref={this.clientBalance} onChange = {() => ee.emit("edit_input", client, this.clientBalance)}></input>
+                        <input type="number" ref={this.clientBalance} onChange = {() => ee.emit("edit_balance", client, this.clientBalance)}></input>
                     </td>
                     <td className = {this.checkColor()} key = {client.id + "status"}>
                         <select>

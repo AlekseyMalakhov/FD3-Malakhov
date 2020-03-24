@@ -20,14 +20,21 @@ class Mobile extends React.Component {
         this.onDelete = this.onDelete.bind(this);
         this.onSave = this.onSave.bind(this);
         this.onCancel = this.onCancel.bind(this);
-        this.onEditInput = this.onEditInput.bind(this);
+        this.onEditSurname = this.onEditSurname.bind(this);
+        this.onEditName = this.onEditName.bind(this);
+        this.onEditPatronymic = this.onEditPatronymic.bind(this);
+        this.onEditBalance = this.onEditBalance.bind(this);
+        this.editClient = this.editClient.bind(this);
 
 
     }
 
     componentDidMount() {
         ee.on("edit", this.onEdit);
-        ee.on("edit_input", this.onEditInput);
+        ee.on("edit_surname", this.onEditSurname);
+        ee.on("edit_name", this.onEditName);
+        ee.on("edit_patronymic", this.onEditPatronymic);
+        ee.on("edit_balance", this.onEditBalance);
         ee.on("delete", this.onDelete);
         ee.on("save", this.onSave);
         ee.on("cancel", this.onCancel);
@@ -50,9 +57,38 @@ class Mobile extends React.Component {
         this.setState({clients: result});
     }
 
-    onEditInput(client, some) {
-        //console.log(some.current.value);
-        console.log(some);
+    onEditSurname(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "surname", data);
+    }
+
+    onEditName(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "name", data);
+    }
+
+    onEditPatronymic(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "patronymic", data);
+    }
+
+    onEditBalance(client, data) {
+        var data = data.current.value;
+        this.editClient(client, "balance", data);
+    }
+
+    editClient(client, type, data) {
+        var new_client = {...client};
+        new_client[type] = data;
+        //console.log(new_client.id + " " + type + " "+ data);
+        //console.log(new_client);
+        var result = {...this.state.clients};
+        var clients_arr = [...result[new_client.company]];
+        var pos = clients_arr.findIndex((e) => (e.id === new_client.id));        
+        clients_arr[pos] = new_client;
+        result[new_client.company] = clients_arr;
+        console.log(this.state.clients);
+        console.log(result);
     }
 
     onDelete(client) {
