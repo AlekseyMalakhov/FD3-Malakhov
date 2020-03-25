@@ -57,7 +57,7 @@ class Mobile extends React.Component {
 
         ee.on("delete", this.onDelete);
         ee.on("save", this.onSave);
-        ee.on("cancel", this.onCancel);
+        //ee.on("cancel", this.onCancel);
         var clients = {...this.props.initial_data.clients};
         var companies = [...this.props.initial_data.companies];
         this.setState({clients: clients,
@@ -66,9 +66,9 @@ class Mobile extends React.Component {
         });
     }
 
-    onEditToggle(client) {
+    onEditToggle(client, bool) {
         var result = makeImmutable(client, this.state);
-        result.new_client.edit = true;
+        result.new_client.edit = bool;
         //console.log(this.state.clients);
         //console.log(result.new_client_list);
         this.setState({clients: result.new_client_list});
@@ -115,8 +115,16 @@ class Mobile extends React.Component {
         this.setState({clients: result.new_client_list});
     }
 
-    onSave(client) {
-        console.log("save");
+    onSave(client, changed_client) {
+        //console.log(client);
+        //console.log(changed_client);
+        var result = makeImmutable(client, this.state);
+        var pos = result.position;
+        result.new_client_list[client.company][pos] = changed_client;
+        //console.log(this.state.clients);
+        //console.log(result.new_client_list);
+        this.setState({clients: result.new_client_list});
+
     }
 
     onCancel(client) {
