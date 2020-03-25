@@ -28,36 +28,21 @@ class Mobile extends React.Component {
             clients: {},
             companies:[],
             company: "",
+            new_id: 5
         };
         this.selectCompany = this.selectCompany.bind(this);
         this.onEditToggle = this.onEditToggle.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onSave = this.onSave.bind(this);
-        this.onCancel = this.onCancel.bind(this);
-        /*
-        this.onEditSurname = this.onEditSurname.bind(this);
-        this.onEditName = this.onEditName.bind(this);
-        this.onEditPatronymic = this.onEditPatronymic.bind(this);
-        this.onEditBalance = this.onEditBalance.bind(this);
-        this.editClient = this.editClient.bind(this);
-        */
-
+        this.onAddClient = this.onAddClient.bind(this);
 
     }
 
     componentDidMount() {
         ee.on("edit", this.onEditToggle);
-
-        /*
-        ee.on("edit_surname", this.onEditSurname);
-        ee.on("edit_name", this.onEditName);
-        ee.on("edit_patronymic", this.onEditPatronymic);
-        ee.on("edit_balance", this.onEditBalance);
-        */
-
         ee.on("delete", this.onDelete);
         ee.on("save", this.onSave);
-        //ee.on("cancel", this.onCancel);
+        ee.on("add_client", this.onAddClient);
         var clients = {...this.props.initial_data.clients};
         var companies = [...this.props.initial_data.companies];
         this.setState({clients: clients,
@@ -73,38 +58,6 @@ class Mobile extends React.Component {
         //console.log(result.new_client_list);
         this.setState({clients: result.new_client_list});
     }
-
-    /*
-
-    onEditSurname(client, data) {
-        var data = data.current.value;
-        this.editClient(client, "surname", data);
-    }
-
-    onEditName(client, data) {
-        var data = data.current.value;
-        this.editClient(client, "name", data);
-    }
-
-    onEditPatronymic(client, data) {
-        var data = data.current.value;
-        this.editClient(client, "patronymic", data);
-    }
-
-    onEditBalance(client, data) {
-        var data = data.current.value;
-        this.editClient(client, "balance", data);
-    }
-
-    editClient(client, type, data) {
-        var result = makeImmutable(client, this.state);
-        result.new_client[type] = data;
-        //console.log(this.state.clients);
-        //console.log(result.new_client_list);
-        this.setState({clients: result.new_client_list});
-    }
-
-    */
 
     onDelete(client) {
         var result = makeImmutable(client, this.state);
@@ -127,16 +80,39 @@ class Mobile extends React.Component {
 
     }
 
-    onCancel(client) {
-        console.log("cancel");
-    }
-
     selectCompany(company) {
         this.setState({company: company});
     }
 
+    onAddClient() {
+        var adding;
+        if (this.state.company === "Velcom") {
+            adding = "_Vel";
+        } else {
+            adding = "_MTS";
+        }
+        var new_client = {
+            id: this.state.new_id + adding,
+            surname: "",
+            name: "",
+            patronymic: "",
+            balance: 0,
+            status: "active",
+            edit: true,
+            company: this.state.company
+        };
+        var new_client_list = {...this.state.clients};
+        var clients_arr = [...new_client_list[new_client.company]];
+        clients_arr.push(new_client);
+        new_client_list[new_client.company] = clients_arr;        
+        //console.log(new_client_list);
+        //console.log(this.state.clients);
+        this.setState({clients: new_client_list,
+                        new_id: (this.state.new_id + 1)});
+    }
+
     render() {
-        console.log(this.props);
+        console.log(this.state);
         var company = this.state.company;
         return <div>
                 <Companies companies = {this.state.companies} onCompanySelect = {this.selectCompany}></Companies>

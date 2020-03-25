@@ -1,6 +1,8 @@
 import React from 'react';
 import './index.css';
 import Client from "./Client.js";
+import ee from "./Emitter.js";
+
 
 class Table extends React.PureComponent {
     constructor(props) {
@@ -36,7 +38,7 @@ class Table extends React.PureComponent {
                             {this.createRows()}
                         </tbody>
                     </table>
-                    <button type="button">Редактировать</button>
+                    <button type="button" onClick = {() => ee.emit("add_client")}>Добавить клиента</button>
                 </div>;
     }
 }

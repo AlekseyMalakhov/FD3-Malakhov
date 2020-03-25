@@ -49,6 +49,7 @@ class Client extends React.PureComponent {
     changed_client;
 
     editClient(client, type, data) {
+        console.log(data);
         this.changed_client = {...client};
         this.changed_client[type] = data;
         this.changed_client.edit = false;
@@ -104,9 +105,9 @@ class Client extends React.PureComponent {
                         <input type="number" ref={this.clientBalance} onChange = {() => this.onEditBalance(client, this.clientBalance)}></input>
                     </td>
                     <td className = {this.checkColor()} key = {client.id + "status"}>
-                        <select ref={this.clientStatus} onChange = {() => this.onEditStatus(client, this.clientStatus)}>
-                            <option>active</option>
-                            <option>blocked</option>
+                        <select defaultValue={this.changed_client.status} ref={this.clientStatus} onChange = {() => this.onEditStatus(client, this.clientStatus)}>
+                            <option value="active">active</option>
+                            <option value="blocked">blocked</option>
                         </select>
                     </td>
                     <td key = {client.id + "save"}>
