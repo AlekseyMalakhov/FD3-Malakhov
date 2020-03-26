@@ -17,7 +17,7 @@ class Companies extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props);
+        console.log("Companies"); 
         return <div>
             {this.createButtons()}
         </div>;

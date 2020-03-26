@@ -8,6 +8,7 @@ class Filter extends React.PureComponent {
     }
 
     render() {
+        console.log("Filter"); 
         return <div>
             <button type="button" className = {(this.props.view === "view_all") ? "selected" : ""} onClick = {() => ee.emit("view_all")}>Все</button>
             <button type="button" className = {(this.props.view === "view_active") ? "selected" : ""} onClick = {() => ee.emit("view_active")}>Активные</button>

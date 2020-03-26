@@ -116,7 +116,7 @@ class Mobile extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log("Mobile");
         var company = this.state.company;
         return <div>
                 <Companies companies = {this.state.companies} company = {company} onCompanySelect = {this.selectCompany}></Companies>

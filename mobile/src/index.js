@@ -23,7 +23,7 @@ function addProperties(Initial_data) {
 
 
 var init_data = addProperties(Initial_data);
-console.log(Initial_data);
-console.log(init_data);
+//console.log(Initial_data);
+//console.log(init_data);
 
 ReactDOM.render(<Mobile initial_data = {init_data}></Mobile>, document.getElementById('root'));

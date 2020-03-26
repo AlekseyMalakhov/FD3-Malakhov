@@ -121,7 +121,8 @@ class Client extends React.PureComponent {
         }
     }
 
-    render() {        
+    render() {       
+        console.log("Client"); 
         return this.clientRow();
     }
 }
