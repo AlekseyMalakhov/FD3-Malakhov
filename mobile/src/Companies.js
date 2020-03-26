@@ -9,11 +9,15 @@ class Companies extends React.PureComponent {
 
     createButtons() {
         var companies = [...this.props.companies];
-        var result = companies.map((e, i) => <button key = {i} type="button" onClick = {() => this.props.onCompanySelect(e)}>{e}</button>);
+        var result = companies.map((e, i) => <button key = {i} type="button" 
+                                                className = {(this.props.company === e) ? "selected" : ""} 
+                                                onClick = {() => this.props.onCompanySelect(e)}>{e}
+                                            </button>);
         return result;
     }
 
     render() {
+        console.log(this.props);
         return <div>
             {this.createButtons()}
         </div>;

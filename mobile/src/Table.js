@@ -14,7 +14,25 @@ class Table extends React.PureComponent {
         var result;
         if (this.props.clients) {
             var clients = [...this.props.clients];
-            result = clients.map((e) => <Client key = {e.id} {...e}></Client>);
+            if(this.props.view === "view_all") {
+                result = clients.map((e) => <Client key = {e.id} {...e}></Client>);
+            }
+
+            if(this.props.view === "view_active") {
+                result = clients.map((e) => {
+                    if (e.status === "active") {
+                        return <Client key = {e.id} {...e}></Client>;
+                    }
+                });
+            }
+
+            if(this.props.view === "view_blocked") {
+                result = clients.map((e) => {
+                    if (e.status === "blocked") {
+                        return <Client key = {e.id} {...e}></Client>;
+                    }
+                });
+            }            
         }
         return result;
     }

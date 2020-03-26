@@ -25,3 +25,7 @@ div {
 input[type="text"],[type="number"] {
     width: 80px;
 }
+
+.selected {
+    background-color: rgb(135, 178, 228);
+}

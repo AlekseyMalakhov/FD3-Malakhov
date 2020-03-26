@@ -28,7 +28,8 @@ class Mobile extends React.Component {
             clients: {},
             companies:[],
             company: "",
-            new_id: 5
+            new_id: 5,
+            view: "view_all"
         };
         this.selectCompany = this.selectCompany.bind(this);
         this.onEditToggle = this.onEditToggle.bind(this);
@@ -43,6 +44,9 @@ class Mobile extends React.Component {
         ee.on("delete", this.onDelete);
         ee.on("save", this.onSave);
         ee.on("add_client", this.onAddClient);
+        ee.on("view_all", () => this.setState({view: "view_all"}));
+        ee.on("view_active", () => this.setState({view: "view_active"}));
+        ee.on("view_blocked", () => this.setState({view: "view_blocked"}));
         var clients = {...this.props.initial_data.clients};
         var companies = [...this.props.initial_data.companies];
         this.setState({clients: clients,
@@ -115,10 +119,10 @@ class Mobile extends React.Component {
         console.log(this.state);
         var company = this.state.company;
         return <div>
-                <Companies companies = {this.state.companies} onCompanySelect = {this.selectCompany}></Companies>
+                <Companies companies = {this.state.companies} company = {company} onCompanySelect = {this.selectCompany}></Companies>
                 <p>Компания: {this.state.company}</p>
-                <Filter></Filter>
-                <Table clients = {this.state.clients[company]}></Table>
+                <Filter view = {this.state.view}></Filter>
+                <Table clients = {this.state.clients[company]} view = {this.state.view}></Table>
             </div>;
 
     }
