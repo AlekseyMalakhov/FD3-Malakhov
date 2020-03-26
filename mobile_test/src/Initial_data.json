@@ -1,0 +1,73 @@
+{
+    "companies": ["Velcom", "MTS"],
+    "clients": {
+        "Velcom": [
+            {
+                "id": "1_Vel",
+                "surname": "Иванов",
+                "name": "Иван",
+                "patronymic": "Иванович",
+                "balance": "200",
+                "status": "active"
+            },
+            {
+                "id": "2_Vel",
+                "surname": "Сидоров",
+                "name": "Сидор",
+                "patronymic": "Сидорович",
+                "balance": "250",
+                "status": "active"
+            },
+            {
+                "id": "3_Vel",
+                "surname": "Петров",
+                "name": "Петр",
+                "patronymic": "Петрович",
+                "balance": "180",
+                "status": "active"
+            },
+            {
+                "id": "4_Vel",
+                "surname": "Григорьев",
+                "name": "Григорий",
+                "patronymic": "Григорьевич",
+                "balance": "-220",
+                "status": "blocked"
+            }
+        ],
+        "MTS": [
+            {
+                "id": "1_MTS",
+                "surname": "Алексеев",
+                "name": "Алексей",
+                "patronymic": "Алексеевич",
+                "balance": "175",
+                "status": "active"
+            },
+            {
+                "id": "2_MTS",
+                "surname": "Павлов",
+                "name": "Павел",
+                "patronymic": "Павлович",
+                "balance": "-140",
+                "status": "blocked"
+            },
+            {
+                "id": "3_MTS",
+                "surname": "Сергеев",
+                "name": "Сергей",
+                "patronymic": "Сергеевич",
+                "balance": "68",
+                "status": "active"
+            },
+            {
+                "id": "4_MTS",
+                "surname": "Дмитриев",
+                "name": "Дмитрий",
+                "patronymic": "Дмитриевич",
+                "balance": "300",
+                "status": "active"
+            }
+        ]
+    }
+}
