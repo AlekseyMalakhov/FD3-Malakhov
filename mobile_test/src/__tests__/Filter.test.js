@@ -26,12 +26,12 @@ test("Filter works correctly", () => {
     const button_active = instance.find((node) => {return node.children[0] === "Активные"});
     const button_blocked = instance.find((node) => {return node.children[0] === "Заблокированные"});
 
-    act(button_active.props.onClick);
+    act(() => {button_active.props.onClick()});
     expect(view).toBe("view_active");
 
-    act(button_blocked.props.onClick);
+    act(() => {button_blocked.props.onClick()});
     expect(view).toBe("view_blocked");
 
-    act(button_all.props.onClick);
+    act(() => {button_all.props.onClick()});
     expect(view).toBe("view_all");
 });

@@ -68,6 +68,7 @@ class Client extends React.PureComponent {
         var client = this.props;
         this.changed_client = {...this.props};
         this.changed_client.edit = false;
+        console.log(client);
 
         if(!client) {
             return <tr><td></td></tr>;
