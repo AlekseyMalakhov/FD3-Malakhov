@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.css';
-import Companies from "./Companies.js";
 import Filter from "./Filter.js";
 import Table from "./Table.js";
 import ee from "./Emitter.js";
