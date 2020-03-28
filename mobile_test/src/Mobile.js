@@ -27,7 +27,7 @@ class Mobile extends React.Component {
         this.state = {
             clients: {},
             companies:[],
-            company: "",
+            company: "Velcom",
             new_id: 5,
             view: "view_all"
         };
@@ -119,8 +119,6 @@ class Mobile extends React.Component {
         console.log("Mobile");
         var company = this.state.company;
         return <div>
-                <Companies companies = {this.state.companies} company = {company} onCompanySelect = {this.selectCompany}></Companies>
-                <p>Компания: {this.state.company}</p>
                 <Filter view = {this.state.view}></Filter>
                 <Table clients = {this.state.clients[company]} view = {this.state.view}></Table>
             </div>;
