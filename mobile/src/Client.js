@@ -93,16 +93,20 @@ class Client extends React.PureComponent {
             return (
                 <tr key = {client.id + "row"}>
                     <td key = {client.id + "surname"}>
-                        <input type="text" ref={this.clientSurname} onChange = {() => this.onEditSurname(client, this.clientSurname)}></input>
+                        <input type="text" ref={this.clientSurname} defaultValue={client.surname}
+                            onChange = {() => this.onEditSurname(client, this.clientSurname)}></input>
                     </td>
                     <td key = {client.id + "name"}>
-                        <input type="text" ref={this.clientName} onChange = {() => this.onEditName(client, this.clientName)}></input>
+                        <input type="text" ref={this.clientName} defaultValue={client.name} 
+                            onChange = {() => this.onEditName(client, this.clientName)}></input>
                     </td>
                     <td key = {client.id + "patronymic"}>
-                        <input type="text" ref={this.clientPatronymic} onChange = {() => this.onEditPatronymic(client, this.clientPatronymic)}></input>
+                        <input type="text" ref={this.clientPatronymic} defaultValue={client.patronymic} 
+                            onChange = {() => this.onEditPatronymic(client, this.clientPatronymic)}></input>
                     </td>
                     <td key = {client.id + "balance"}>
-                        <input type="number" ref={this.clientBalance} onChange = {() => this.onEditBalance(client, this.clientBalance)}></input>
+                        <input type="number" ref={this.clientBalance} defaultValue={client.balance} 
+                            onChange = {() => this.onEditBalance(client, this.clientBalance)}></input>
                     </td>
                     <td className = {this.checkColor()} key = {client.id + "status"}>
                         <select defaultValue={this.changed_client.status} ref={this.clientStatus} onChange = {() => this.onEditStatus(client, this.clientStatus)}>
@@ -122,7 +126,7 @@ class Client extends React.PureComponent {
     }
 
     render() {       
-        console.log("Client"); 
+        console.log("Client " + this.props.id); 
         return this.clientRow();
     }
 }
