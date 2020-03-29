@@ -34,4 +34,7 @@ test("Filter works correctly", () => {
 
     act(() => {button_all.props.onClick()});
     expect(view).toBe("view_all");
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });

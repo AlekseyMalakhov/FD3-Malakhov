@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter works correctly 1`] = `
+<div>
+  <button
+    className="selected"
+    onClick={[Function]}
+    type="button"
+  >
+    Все
+  </button>
+  <button
+    className=""
+    onClick={[Function]}
+    type="button"
+  >
+    Активные
+  </button>
+  <button
+    className=""
+    onClick={[Function]}
+    type="button"
+  >
+    Заблокированные
+  </button>
+</div>
+`;
