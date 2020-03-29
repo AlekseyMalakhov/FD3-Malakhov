@@ -20,37 +20,34 @@ class Client extends React.PureComponent {
         this.editClient = this.editClient.bind(this);
     }
 
-    onEditSurname(client, data) {
+    onEditSurname(data) {
         var data = data.current.value;
-        this.editClient(client, "surname", data);
+        this.editClient("surname", data);
     }
 
-    onEditName(client, data) {
+    onEditName(data) {
         var data = data.current.value;
-        this.editClient(client, "name", data);
+        this.editClient("name", data);
     }
 
-    onEditPatronymic(client, data) {
+    onEditPatronymic(data) {
         var data = data.current.value;
-        this.editClient(client, "patronymic", data);
+        this.editClient("patronymic", data);
     }
 
-    onEditBalance(client, data) {
+    onEditBalance(data) {
         var data = data.current.value;
-        this.editClient(client, "balance", data);
+        this.editClient("balance", data);
     }
 
-    onEditStatus(client, data) {
+    onEditStatus(data) {
         var data = data.current.value;
-        console.log(data);
-        this.editClient(client, "status", data);
+        this.editClient("status", data);
     }
 
     changed_client;
 
-    editClient(client, type, data) {
-        console.log(data);
-        this.changed_client = {...client};
+    editClient(type, data) {
         this.changed_client[type] = data;
         this.changed_client.edit = false;
     }
@@ -94,22 +91,22 @@ class Client extends React.PureComponent {
                 <tr key = {client.id + "row"}>
                     <td key = {client.id + "surname"}>
                         <input type="text" ref={this.clientSurname} defaultValue={client.surname}
-                            onChange = {() => this.onEditSurname(client, this.clientSurname)}></input>
+                            onChange = {() => this.onEditSurname(this.clientSurname)}></input>
                     </td>
                     <td key = {client.id + "name"}>
                         <input type="text" ref={this.clientName} defaultValue={client.name} 
-                            onChange = {() => this.onEditName(client, this.clientName)}></input>
+                            onChange = {() => this.onEditName(this.clientName)}></input>
                     </td>
                     <td key = {client.id + "patronymic"}>
                         <input type="text" ref={this.clientPatronymic} defaultValue={client.patronymic} 
-                            onChange = {() => this.onEditPatronymic(client, this.clientPatronymic)}></input>
+                            onChange = {() => this.onEditPatronymic(this.clientPatronymic)}></input>
                     </td>
                     <td key = {client.id + "balance"}>
                         <input type="number" ref={this.clientBalance} defaultValue={client.balance} 
-                            onChange = {() => this.onEditBalance(client, this.clientBalance)}></input>
+                            onChange = {() => this.onEditBalance(this.clientBalance)}></input>
                     </td>
                     <td className = {this.checkColor()} key = {client.id + "status"}>
-                        <select defaultValue={this.changed_client.status} ref={this.clientStatus} onChange = {() => this.onEditStatus(client, this.clientStatus)}>
+                        <select defaultValue={this.changed_client.status} ref={this.clientStatus} onChange = {() => this.onEditStatus(this.clientStatus)}>
                             <option value="active">active</option>
                             <option value="blocked">blocked</option>
                         </select>

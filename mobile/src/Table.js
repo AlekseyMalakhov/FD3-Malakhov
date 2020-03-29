@@ -38,7 +38,7 @@ class Table extends React.PureComponent {
     }
 
     render() {
-        console.log("Table"); 
+        console.log("Table");
         return <div>
                     <table>
                         <thead>
