@@ -80,9 +80,10 @@ var Vegetable = /** @class */ (function (_super) {
 }(Product));
 var Scales = /** @class */ (function () {
     function Scales() {
+        this.products = [];
     }
-    Scales.prototype.add = function (items) {
-        this.products = items;
+    Scales.prototype.add = function (item) {
+        this.products.push(item);
     };
     Scales.prototype.getSumScale = function () {
         var result = 0;
@@ -90,7 +91,7 @@ var Scales = /** @class */ (function () {
         function sum(item) {
             result = result + item.weight;
         }
-        console.log(result);
+        return result;
     };
     Scales.prototype.getNameList = function () {
         var result = [];
@@ -98,26 +99,20 @@ var Scales = /** @class */ (function () {
         function nameList(item) {
             result.push(item.name);
         }
-        console.log(result);
+        return result;
     };
     return Scales;
 }());
-var packOffruits = [];
-fruits.forEach(createPackOfFruits);
-function createPackOfFruits(item) {
-    packOffruits.push(new Fruit(item.name, item.weight));
-}
-var packOfVegetables = [];
-vegetables.forEach(createPackOfVegetables);
-function createPackOfVegetables(item) {
-    packOfVegetables.push(new Vegetable(item.name, item.weight));
-}
-console.log(packOffruits);
-console.log(packOfVegetables);
 var scale = new Scales;
-scale.add(packOffruits);
-scale.getSumScale();
-scale.getNameList();
-scale.add(packOfVegetables);
-scale.getSumScale();
-scale.getNameList();
+fruits.forEach(addFruits);
+function addFruits(item) {
+    scale.add(new Fruit(item.name, item.weight));
+}
+console.log(scale.getSumScale());
+console.log(scale.getNameList());
+vegetables.forEach(addVegetables);
+function addVegetables(item) {
+    scale.add(new Vegetable(item.name, item.weight));
+}
+console.log(scale.getSumScale());
+console.log(scale.getNameList());

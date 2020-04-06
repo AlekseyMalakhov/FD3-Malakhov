@@ -69,53 +69,45 @@ class Vegetable extends Product {
 }
 
 class Scales {
-  products: Product[];
+  products: Product[] = [];
 
-  add(items: Product[]) {
-    this.products = items;
+  add(item: Product) {
+    this.products.push(item);
   }
 
-  getSumScale() {
+  getSumScale(): number {
     var result: number = 0;
     this.products.forEach(sum);
     function sum(item: Product): void {
       result = result + item.weight;
     }
-    console.log(result);
+    return result;
   }
 
-  getNameList() {
+  getNameList(): string[] {
     var result: string[] = [];
     this.products.forEach(nameList);
     function nameList(item: Product): void {
       result.push(item.name);
     }
-    console.log(result);    
+    return result;    
   }
 }
 
-var packOffruits: Fruit[] = [];
-fruits.forEach(createPackOfFruits);
-
-function createPackOfFruits(item: {name: string, weight: number}) {
-  packOffruits.push(new Fruit(item.name, item.weight));
-}
-
-var packOfVegetables: Vegetable[] = [];
-vegetables.forEach(createPackOfVegetables);
-
-function createPackOfVegetables(item: {name: string, weight: number}) {
-  packOfVegetables.push(new Vegetable(item.name, item.weight));
-}
-
-console.log(packOffruits);
-console.log(packOfVegetables);
-
 var scale = new Scales;
-scale.add(packOffruits);
-scale.getSumScale();
-scale.getNameList();
 
-scale.add(packOfVegetables);
-scale.getSumScale();
-scale.getNameList();
+fruits.forEach(addFruits);
+function addFruits(item: {name: string, weight: number}) {
+  scale.add(new Fruit(item.name, item.weight));
+}
+
+console.log(scale.getSumScale());
+console.log(scale.getNameList());
+
+vegetables.forEach(addVegetables);
+function addVegetables(item: {name: string, weight: number}) {
+  scale.add(new Vegetable(item.name, item.weight));
+}
+
+console.log(scale.getSumScale());
+console.log(scale.getNameList());
